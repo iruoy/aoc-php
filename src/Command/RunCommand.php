@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Puzzle\AbstractPuzzle;
 use DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +28,7 @@ class RunCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $year = $input->getOption('year');
-        $day = sprintf('%02d', $input->getOption('day'));
+        $day = sprintf('%02d', $input->getOption('day')); // @phpstan-ignore-line
         $test = $input->getOption('test');
 
         $classString = '\App\Puzzle\Year' . $year . '\Day' . $day;
@@ -35,14 +36,24 @@ class RunCommand extends Command
             $output->writeln('The solution for this day doesn\'t exist.');
             return Command::FAILURE;
         }
+
         $solution = new $classString();
+        if (!$solution instanceof AbstractPuzzle) {
+            $output->writeln('The solution for this day doesn\'t exist.');
+            return Command::FAILURE;
+        }
 
         $filename = __DIR__ . '/../../public/data/' . $year . '/' . $day . '/' . ($test ? 'example' : 'input') . '.txt';
         if (!file_exists($filename)) {
             $output->writeln('The ' . ($test ? 'example' : 'input') . ' for this day doesn\'t exist.');
             return Command::FAILURE;
         }
+
         $data = file_get_contents($filename);
+        if (!is_string($data)) {
+            $output->writeln('The ' . ($test ? 'example' : 'input') . ' for this day doesn\'t exist.');
+            return Command::FAILURE;
+        }
 
         $output->writeln('Part 1: ' . $solution->part1($data));
         $output->writeln('Part 2: ' . $solution->part2($data));

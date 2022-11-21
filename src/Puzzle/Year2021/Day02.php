@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Puzzle\Year2021;
 
-class Day02
+use App\Puzzle\AbstractPuzzle;
+
+class Day02 extends AbstractPuzzle
 {
     public function part1(string $input): int
     {

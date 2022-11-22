@@ -11,7 +11,7 @@ class Day01Test extends AbstractPuzzleTestCase
     protected function setUp(): void
     {
         $this->solution = new \App\Puzzle\Year2021\Day01();
-        $this->data = file_get_contents(__DIR__ . '/../../public/data/2021/01/example.txt'); // @phpstan-ignore-line
+        $this->data = file_get_contents(__DIR__.'/../../public/data/2021/01/example.txt'); // @phpstan-ignore-line
     }
 
     public function testPart1(): void

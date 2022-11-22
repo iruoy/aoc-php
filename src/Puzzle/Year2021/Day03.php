@@ -15,7 +15,7 @@ class Day03 extends AbstractPuzzle
         $gama = $this->rateGama($data);
         $epsilon = strtr($gama, [1, 0]);
 
-        return (int)(bindec($gama) * bindec($epsilon));
+        return (int) (bindec($gama) * bindec($epsilon));
     }
 
     public function part2(string $input): int
@@ -25,7 +25,7 @@ class Day03 extends AbstractPuzzle
         $oxygen = $this->lifeRating($data);
         $co2 = $this->lifeRating($data, true);
 
-        return (int)(bindec($oxygen) * bindec($co2));
+        return (int) (bindec($oxygen) * bindec($co2));
     }
 
     /**

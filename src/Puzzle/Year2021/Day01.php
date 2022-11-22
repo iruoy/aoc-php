@@ -25,9 +25,9 @@ class Day01 extends AbstractPuzzle
         $measurements = explode("\n", $input);
         $checkCount = count($measurements) - $size;
 
-        for ($i = 0; $i < $checkCount; $i++) {
+        for ($i = 0; $i < $checkCount; ++$i) {
             if ($measurements[$i] < $measurements[$i + $size]) {
-                $increase++;
+                ++$increase;
             }
         }
 

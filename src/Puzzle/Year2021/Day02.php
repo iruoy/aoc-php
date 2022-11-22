@@ -15,7 +15,7 @@ class Day02 extends AbstractPuzzle
         $moves = explode("\n", $input);
         foreach ($moves as $move) {
             [$action, $dist] = explode(' ', $move);
-            $dist = (int)$dist;
+            $dist = (int) $dist;
 
             switch ($action) {
                 case 'forward':
@@ -40,7 +40,7 @@ class Day02 extends AbstractPuzzle
         $moves = explode("\n", $input);
         foreach ($moves as $move) {
             [$action, $dist] = explode(' ', $move);
-            $dist = (int)$dist;
+            $dist = (int) $dist;
 
             switch ($action) {
                 case 'forward':

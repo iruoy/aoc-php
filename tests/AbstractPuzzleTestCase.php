@@ -13,5 +13,6 @@ abstract class AbstractPuzzleTestCase extends TestCase
     protected string $data;
 
     abstract public function testPart1(): void;
+
     abstract public function testPart2(): void;
 }

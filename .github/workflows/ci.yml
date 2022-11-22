@@ -36,6 +36,8 @@ jobs:
 #         touch data/database.sqlite
     - name: Run static analysis via PHPStan
       run: vendor/bin/phpstan --xdebug --error-format=checkstyle | cs2pr
+    - name: Run coding standard checks via PHP CS Fixer
+      run: vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
     - name: Run tests via PHPUnit
 #       env:
 #         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite

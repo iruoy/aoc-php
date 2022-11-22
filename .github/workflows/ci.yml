@@ -11,10 +11,7 @@ permissions:
 
 jobs:
   ci:
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+    runs-on: ubuntu-latest
     steps:
     - uses: shivammathur/setup-php@v2
       with:
@@ -37,7 +34,7 @@ jobs:
 #         mkdir -p data
 #         touch data/database.sqlite
     - name: Run static analysis via PHPStan
-      run: vendor/bin/phpstan --xdebug
+      run: vendor/bin/phpstan --xdebug --error-format=checkstyle | cs2pr
     - name: Run tests via PHPUnit
 #       env:
 #         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite

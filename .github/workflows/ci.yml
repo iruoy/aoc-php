@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        tools: cs2pr
+    - uses: actions/checkout@v3
+    - name: Copy .env.test.local
+      run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader
+#     - name: Create Database
+#       run: |
+#         mkdir -p data
+#         touch data/database.sqlite
+    - name: Run static analysis via PHPStan
+      run: vendor/bin/phpstan --xdebug --error-format=checkstyle | cs2pr
+    - name: Run coding standard checks via PHP CS Fixer
+      run: vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+    - name: Run tests via PHPUnit
+#       env:
+#         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+      run: vendor/bin/phpunit

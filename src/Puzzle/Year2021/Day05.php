@@ -15,19 +15,6 @@ class Day05 extends AbstractPuzzle
         $grid = $this->createGrid($lines);
         $grid = $this->fillGrid($grid, $lines, false);
 
-//        echo PHP_EOL.PHP_EOL;
-//        foreach ($grid as $row) {
-//            foreach ($row as $column) {
-//                if (0 === $column) {
-//                    echo '.';
-//                } else {
-//                    echo $column;
-//                }
-//            }
-//            echo PHP_EOL;
-//        }
-//        exit;
-
         return $this->countOverlaps($grid);
     }
 

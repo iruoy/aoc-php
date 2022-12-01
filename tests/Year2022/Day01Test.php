@@ -16,11 +16,11 @@ class Day01Test extends AbstractPuzzleTestCase
 
     public function testPart1(): void
     {
-        $this->assertSame(0, $this->solution->part1($this->data));
+        $this->assertSame(24000, $this->solution->part1($this->data));
     }
 
     public function testPart2(): void
     {
-        $this->assertSame(0, $this->solution->part2($this->data));
+        $this->assertSame(45000, $this->solution->part2($this->data));
     }
 }
